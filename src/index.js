@@ -17,24 +17,25 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { createBrowserHistory } from "history";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
 
-// core components
-import Admin from "layouts/Admin.jsx";
-import RTL from "layouts/RTL.jsx";
+//Redux dependences
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import reduxThunk from "redux-thunk";
+import reducers from "./reducers";
+import App from "./App";
 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 
-const hist = createBrowserHistory();
+const store = createStore(
+  reducers, //todos los reducers
+  {}, //estado inicial
+  applyMiddleware(reduxThunk)
+);
 
 ReactDOM.render(
-  <Router history={hist}>
-    <Switch>
-      <Route path="/admin" component={Admin} />
-      <Route path="/rtl" component={RTL} />
-      <Redirect from="/" to="/admin/dashboard" />
-    </Switch>
-  </Router>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
