@@ -26,12 +26,18 @@ import reducers from "./reducers";
 import App from "./App";
 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
+import { AUTHENTICATED } from "./constants/loginConstants";
 
 const store = createStore(
   reducers, //todos los reducers
   {}, //estado inicial
   applyMiddleware(reduxThunk)
 );
+
+const user = localStorage.getItem("user");
+if (user) {
+  store.dispatch({ type: AUTHENTICATED });
+}
 
 ReactDOM.render(
   <Provider store={store}>
