@@ -25,6 +25,7 @@ import reduxThunk from "redux-thunk";
 import reducers from "./reducers";
 import App from "./App";
 
+import "bootstrap/dist/css/bootstrap.css";
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 import { AUTHENTICATED } from "./constants/loginConstants";
 

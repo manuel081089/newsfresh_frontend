@@ -21,9 +21,8 @@ const App = () => (
       {/* <Route path="/signup" component={noRequireAuth(Signup)} /> */}
       <Route path="/signout" component={requireAuth(Signout)} />
       <Route path="/secret" component={requireAuth(SecretPage)} />
-      <Route path="/admin" component={Admin} />
+      <Route path="/admin" component={requireAuth(Admin)} />
       <Route path="/rtl" component={RTL} />
-      {/* <Redirect from="/" to="/admin/dashboard" /> */}
     </Switch>
   </Router>
 );

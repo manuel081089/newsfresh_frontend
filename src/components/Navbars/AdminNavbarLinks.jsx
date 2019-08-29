@@ -40,7 +40,16 @@ import Button from "components/CustomButtons/Button.jsx";
 
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
 
+//Mine
+import * as loginActions from "../../actions/signOutAction";
+import { connect } from "react-redux";
+
 class AdminNavbarLinks extends React.Component {
+
+  componentDidMount(){
+    console.log('Props:::', this.props)
+  }
+
   state = {
     openNotifcation: false,
     openProfile: false
@@ -58,6 +67,8 @@ class AdminNavbarLinks extends React.Component {
     this.setState(state => ({ openProfile: !state.openProfile }));
   };
   handleCloseProfile = event => {
+    console.log('Closeeeee')
+    this.props.signOutAction(this.props.history);
     if (this.anchorProfile.contains(event.target)) {
       return;
     }
@@ -253,4 +264,9 @@ AdminNavbarLinks.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(headerLinksStyle)(AdminNavbarLinks);
+function mapStateToProps(state) {
+  return { state };
+}
+
+// export default withStyles(headerLinksStyle)(AdminNavbarLinks);
+export default withStyles(headerLinksStyle)(connect(mapStateToProps, loginActions)(AdminNavbarLinks));

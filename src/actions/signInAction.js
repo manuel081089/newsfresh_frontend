@@ -2,28 +2,33 @@ import axios from "axios";
 import {
   AUTHENTICATED,
   AUTHENTICATION_ERROR,
-  CHANGE_EMAIL
+  CHANGE_EMAIL,
+  CHANGE_PASSWORD,
+  CHANGE_SHOW_PASSWORD,
+  LOADING
 } from "../constants/loginConstants";
 
 const URL = "http://localhost:8000";
 
-export function signInAction({ email, password }, history) {
+export function signInAction(signInData, history) {
   return async dispatch => {
     try {
-      const res = await axios.post(`${URL}/login`, { email, password });
+      dispatch({ type: LOADING });
+      const res = await axios.post(`${URL}/api/login`, signInData);
       dispatch({ type: AUTHENTICATED });
       localStorage.setItem("user", res.data.token);
-      history.push("/");
+      history.push("/admin/dashboard");
     } catch (error) {
       dispatch({
         type: AUTHENTICATION_ERROR,
-        payload: "Invalid email or password"
+        payload:
+          "Usuario o contraseña incorrectas, por favor intente de nuevo..."
       });
     }
   };
 }
 
-export function cambioEmail(email) {
+export function changeEmail(email) {
   return dispatch => {
     dispatch({
       type: CHANGE_EMAIL,
@@ -32,9 +37,19 @@ export function cambioEmail(email) {
   };
 }
 
-// export const cambioEmail = email => dispatch => {
-//   dispatch({
-//     type: CHANGE_EMAIL,
-//     payload: email
-//   });
-// };
+export function changePassword(password) {
+  return dispatch => {
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: password
+    });
+  };
+}
+
+export function changeShowPassword() {
+  return dispatch => {
+    dispatch({
+      type: CHANGE_SHOW_PASSWORD
+    });
+  };
+}
