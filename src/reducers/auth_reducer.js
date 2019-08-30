@@ -4,7 +4,6 @@ import {
   AUTHENTICATION_ERROR,
   CHANGE_EMAIL,
   CHANGE_PASSWORD,
-  CHANGE_SHOW_PASSWORD,
   LOADING
 } from "../constants/loginConstants";
 
@@ -37,8 +36,6 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, email: action.payload };
     case CHANGE_PASSWORD:
       return { ...state, password: action.payload };
-    case CHANGE_SHOW_PASSWORD:
-      return { ...state, show_password: !state.show_password };
     default:
       return { ...state };
   }

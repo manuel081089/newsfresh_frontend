@@ -4,7 +4,6 @@ import {
   AUTHENTICATION_ERROR,
   CHANGE_EMAIL,
   CHANGE_PASSWORD,
-  CHANGE_SHOW_PASSWORD,
   LOADING
 } from "../constants/loginConstants";
 
@@ -42,14 +41,6 @@ export function changePassword(password) {
     dispatch({
       type: CHANGE_PASSWORD,
       payload: password
-    });
-  };
-}
-
-export function changeShowPassword() {
-  return dispatch => {
-    dispatch({
-      type: CHANGE_SHOW_PASSWORD
     });
   };
 }

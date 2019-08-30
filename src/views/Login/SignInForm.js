@@ -21,6 +21,11 @@ import Logo from "../../assets/img/logo.png";
 import { CircularProgress } from "@material-ui/core";
 
 class SignInForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { show_password: false };
+  }
+
   submit = values => {
     this.props.signInAction(values, this.props.history);
   };
@@ -44,7 +49,9 @@ class SignInForm extends Component {
   }
 
   handleClickShowPassword = () => {
-    this.props.changeShowPassword();
+    this.setState({
+      show_password: !this.state.show_password
+    });
   };
 
   handleMouseDownPassword = event => {
@@ -107,11 +114,7 @@ class SignInForm extends Component {
                 <InputLabel htmlFor="adornment-password">Password</InputLabel>
                 <Input
                   id="adornment-password"
-                  type={
-                    this.props.state.authReducer.show_password
-                      ? "text"
-                      : "password"
-                  }
+                  type={this.state.show_password ? "text" : "password"}
                   value={this.props.state.authReducer.password}
                   onChange={this.changePassword}
                   endAdornment={
@@ -121,7 +124,7 @@ class SignInForm extends Component {
                         onClick={this.handleClickShowPassword}
                         onMouseDown={this.handleMouseDownPassword}
                       >
-                        {this.props.state.authReducer.show_password ? (
+                        {this.state.show_password ? (
                           <Visibility />
                         ) : (
                           <VisibilityOff />
