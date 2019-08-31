@@ -14,10 +14,10 @@ export function signInAction(signInData, history) {
     try {
       dispatch({ type: LOADING });
       const res = await axios.post(`${API_URL}/api/login`, signInData);
-      dispatch({ type: AUTHENTICATED });
-      dispatch({ type: GET_TOKEN, payload: res.data.token });
-      this.setDefaultHeaderAxiosRequest(res.data.token);
       localStorage.setItem("user", res.data.token);
+      dispatch({ type: AUTHENTICATED });
+      this.setDefaultHeaderAxiosRequest(res.data.token);
+      console.log("modifique el storage::", localStorage);
       history.push("/admin/dashboard");
     } catch (error) {
       dispatch({
