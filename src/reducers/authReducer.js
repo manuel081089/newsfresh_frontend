@@ -24,12 +24,17 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         authenticated: true,
-        email: "",
-        password: "",
-        loading: false
+        loading: false,
+        error: ""
       };
     case UNAUTHENTICATED:
-      return { ...state, authenticated: false };
+      return {
+        ...state,
+        authenticated: false,
+        error: "",
+        email: "",
+        password: ""
+      };
     case AUTHENTICATION_ERROR:
       return { ...state, error: action.payload, loading: false };
     case CHANGE_EMAIL:

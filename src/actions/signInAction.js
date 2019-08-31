@@ -6,15 +6,17 @@ import {
   CHANGE_PASSWORD,
   LOADING
 } from "../constants/loginConstants";
-
-const URL = "http://localhost:8000";
+import { API_URL } from "../constants/envirementConstant";
+import { GET_TOKEN } from "../constants/userConstant";
 
 export function signInAction(signInData, history) {
   return async dispatch => {
     try {
       dispatch({ type: LOADING });
-      const res = await axios.post(`${URL}/api/login`, signInData);
+      const res = await axios.post(`${API_URL}/api/login`, signInData);
       dispatch({ type: AUTHENTICATED });
+      dispatch({ type: GET_TOKEN, payload: res.data.token });
+      this.setDefaultHeaderAxiosRequest(res.data.token);
       localStorage.setItem("user", res.data.token);
       history.push("/admin/dashboard");
     } catch (error) {
@@ -43,4 +45,12 @@ export function changePassword(password) {
       payload: password
     });
   };
+}
+
+function setDefaultHeaderAxiosRequest(token) {
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = token;
+  } else {
+    axios.defaults.headers.common["Authorization"] = null;
+  }
 }

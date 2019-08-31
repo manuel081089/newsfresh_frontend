@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Material Dashboard React - v1.7.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -45,10 +29,6 @@ import * as loginActions from "../../actions/signOutAction";
 import { connect } from "react-redux";
 
 class AdminNavbarLinks extends React.Component {
-
-  componentDidMount(){
-    console.log('Props:::', this.props)
-  }
 
   state = {
     openNotifcation: false,
@@ -268,5 +248,5 @@ function mapStateToProps(state) {
   return { state };
 }
 
-// export default withStyles(headerLinksStyle)(AdminNavbarLinks);
+
 export default withStyles(headerLinksStyle)(connect(mapStateToProps, loginActions)(AdminNavbarLinks));

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { signOutAction } from "../../actions/signOutAction";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 class Signout extends Component {
   componentDidMount() {
@@ -8,11 +9,11 @@ class Signout extends Component {
   }
 
   render() {
-    return <div></div>;
+    return <Redirect to="/login" />;
   }
 }
 function mapStateToProps(state) {
-  return { authenticated: state.auth.authenticated };
+  return { state };
 }
 
 export default connect(mapStateToProps)(Signout);
