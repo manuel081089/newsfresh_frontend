@@ -7,7 +7,7 @@ import {
   LOADING
 } from "../constants/loginConstants";
 import { API_URL } from "../constants/envirementConstant";
-import { GET_TOKEN } from "../constants/userConstant";
+import * as authService from "../Services/authService";
 
 export function signInAction(signInData, history) {
   return async dispatch => {
@@ -16,8 +16,7 @@ export function signInAction(signInData, history) {
       const res = await axios.post(`${API_URL}/api/login`, signInData);
       localStorage.setItem("user", res.data.token);
       dispatch({ type: AUTHENTICATED });
-      this.setDefaultHeaderAxiosRequest(res.data.token);
-      console.log("modifique el storage::", localStorage);
+      authService.setDefaultHeaderAxiosRequest(res.data.token);
       history.push("/admin/dashboard");
     } catch (error) {
       dispatch({
@@ -45,12 +44,4 @@ export function changePassword(password) {
       payload: password
     });
   };
-}
-
-function setDefaultHeaderAxiosRequest(token) {
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = token;
-  } else {
-    axios.defaults.headers.common["Authorization"] = null;
-  }
 }
