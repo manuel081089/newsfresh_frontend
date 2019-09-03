@@ -25,6 +25,7 @@ import { CircularProgress } from "@material-ui/core";
 import Chip from '@material-ui/core/Chip';
 import Email from '@material-ui/icons/Email';
 import DoneIcon from '@material-ui/icons/Done';
+import Phone from '@material-ui/icons/Phone';
 
 const styles = {
   cardCategoryWhite: {
@@ -47,24 +48,64 @@ const styles = {
 
 const account_types = [
   "Ninguna",
-  "Bandec CUC",
-  "BPA CUC"
+  "Paypal",
+  "BPA (CUC) - Solo disponible para Cuba",
+  "BPA (CUP) - Solo disponible para Cuba",
+  "BANDEC (CUC) - Solo disponible para Cuba",
+  "BANDEC (CUP) - Solo disponible para Cuba",
 ]
 
 class UserProfile extends Component {
-  componentDidMount(){
-    this.props.loadLoggedUser();
+  state= {
+    name: '',
+    email: '',
+    password: '',
+    identidad: '',
+    direccion: '',
+    telefono: '',
+    pais: '',
+    estado: '',
+    ciudad: '',
+    tipo_cuenta: '',
+    numero_cuenta: '',
+    ranking: '',
   }
+
+    async componentDidMount(){
+      await this.props.loadLoggedUser();
+      this.setState({
+        name: this.props.state.userReducer.logged_user.name,
+        email: this.props.state.userReducer.logged_user.email,
+        password: this.props.state.userReducer.logged_user.password,
+        identidad: this.props.state.userReducer.logged_user.identidad,
+        direccion: this.props.state.userReducer.logged_user.direccion,
+        telefono: this.props.state.userReducer.logged_user.telefono,
+        pais: this.props.state.userReducer.logged_user.pais,
+        estado: this.props.state.userReducer.logged_user.estado,
+        ciudad: this.props.state.userReducer.logged_user.ciudad,
+        tipo_cuenta: this.props.state.userReducer.logged_user.tipo_cuenta,
+        numero_cuenta: this.props.state.userReducer.logged_user.numero_cuenta,
+        ranking: this.props.state.userReducer.logged_user.ranking,
+      })
+      console.log('Mi estado::', this.state)
+  }
+    
 
   loadingUser = () =>{
     return this.props.state.userReducer.loading || !this.props.state.userReducer.logged_user 
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
+    this.setState({...this.state, [event.target.id]: event.target.value})
     event.preventDefault();
   }
 
-  handleDelete(event){
+  handleChangeNameProps = (event) => {
+    this.setState({...this.state, [event.target.name]: event.target.value})
+    event.preventDefault();
+  }
+
+  handleDelete = (event) =>{
     event.preventDefault();
   }
 
@@ -87,13 +128,14 @@ class UserProfile extends Component {
                   <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       labelText="Nombre Completo"
-                      id="fullName"
+                      id="name"
                       
                       formControlProps={{
                         fullWidth: true,
+                        onChange: this.handleChange
                       }}
                       inputProps={{
-                        value: this.props.state.userReducer.logged_user.name
+                        value: this.state.name
                       }}
                     />
                   </GridItem>
@@ -106,7 +148,7 @@ class UserProfile extends Component {
                       }}
                       inputProps={{
                         disabled: true,
-                        value: this.props.state.userReducer.logged_user.email
+                        value: this.state.email
                       }}
                     />
                   </GridItem>
@@ -115,36 +157,39 @@ class UserProfile extends Component {
                 <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
                       labelText="CI o DNI"
-                      id="identificator"
+                      id="identidad"
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
+                        onChange: this.handleChange
                       }}
                       inputProps={{
-                        value: this.props.state.userReducer.logged_user.identidad
+                        value: this.state.identidad
                       }}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
                       labelText="Pais"
-                      id="country"
+                      id="pais"
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
+                        onChange: this.handleChange
                       }}
                       inputProps={{
-                        value: this.props.state.userReducer.logged_user.pais
+                        value: this.state.pais
                       }}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
                       labelText="Estado o Provincia"
-                      id="state"
+                      id="estado"
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
+                        onChange: this.handleChange
                       }}
                       inputProps={{
-                        value: this.props.state.userReducer.logged_user.estado
+                        value: this.state.estado
                       }}
                     />
                   </GridItem>
@@ -153,57 +198,72 @@ class UserProfile extends Component {
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
                       labelText="Ciudad"
-                      id="city"
+                      id="ciudad"
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
+                        onChange: this.handleChange
                       }}
                       inputProps={{
-                        value: this.props.state.userReducer.logged_user.ciudad
+                        value: this.state.ciudad
                       }}
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={8}>
                     <CustomInput
                       labelText="Dirección"
-                      id="adress"
+                      id="direccion"
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
+                        onChange: this.handleChange
                       }}
                       inputProps={{
-                        value: this.props.state.userReducer.logged_user.direccion
+                        value: this.state.direccion
                       }}
                     />
                   </GridItem>
                 </GridContainer>
                 <GridContainer>
             
-                  <GridItem xs={12} sm={12} md={6}>
-                    <FormControl fullWidth className="mt-4">
-                    <InputLabel htmlFor="age-simple">Tipo de Cuenta</InputLabel>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <FormControl id="tipo_cuenta" fullWidth className="mt-4">
+                    <InputLabel id="tipo_cuenta" htmlFor="tipo_cuenta">Tipo de Cuenta</InputLabel>
                     <Select
-                      value={this.props.state.userReducer.logged_user.tipo_cuenta}
-                      onChange={this.handleChange}
+                      value={this.state.tipo_cuenta}
+                      onChange={this.handleChangeNameProps}
                       inputProps={{
-                        name: 'age',
-                        id: 'age-simple',
+                        name: 'tipo_cuenta',
                       }}
                     >
                       {account_types.map((account)=>{
-                        return <MenuItem value={account}>{account}</MenuItem>
+                        return <MenuItem key={account} id="tipo_cuenta" value={account}>{account}</MenuItem>
                       })}
                     </Select>
                   </FormControl>
                   </GridItem>
 
-                  <GridItem xs={12} sm={12} md={6}>
+                  <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
                       labelText="Número de Cuenta"
-                      id="account_number"
+                      id="numero_cuenta"
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
+                        onChange: this.handleChange
                       }}
                       inputProps={{
-                        value: this.props.state.userReducer.logged_user.numero_cuenta
+                        value: this.state.numero_cuenta
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="Tétefono"
+                      id="telefono"
+                      formControlProps={{
+                        fullWidth: true,
+                        onChange: this.handleChange
+                      }}
+                      inputProps={{
+                        value: this.state.telefono
                       }}
                     />
                   </GridItem>
@@ -223,13 +283,15 @@ class UserProfile extends Component {
                 </a>
               </CardAvatar>
               <CardBody profile>
-                <h4 className={classes.cardTitle}>{this.props.state.userReducer.logged_user.name}</h4>
-                <h6 className={classes.cardCategory}>RANKING: <Chip color="primary" label={this.props.state.userReducer.logged_user.ranking} className={classes.chip} /></h6>
-                <h6 className={classes.cardCategory}><Chip label={this.props.state.userReducer.logged_user.email} icon={<Email />} /></h6>
-                <h6 className={classes.cardCategory}>País: <b>{this.props.state.userReducer.logged_user.pais}</b></h6>
-                <h6 className={classes.cardCategory}>Estado: <b>{this.props.state.userReducer.logged_user.estado}</b></h6>
-                <h6 className={classes.cardCategory}>Tarjeta: <Chip label={this.props.state.userReducer.logged_user.tipo_cuenta} variant="outlined" color="primary" size="small" deleteIcon={<DoneIcon />} onDelete={this.handleDelete} /></h6>
-                <h6 className={classes.cardCategory}>Cuenta: {this.props.state.userReducer.logged_user.numero_cuenta}</h6>
+                <h4 className={classes.cardTitle}>{this.state.name}</h4>
+                <h6 className={classes.cardCategory}>RANKING: <Chip color="primary" label={this.state.ranking} className={classes.chip} /></h6>
+                <h6 className={classes.cardCategory}><Chip label={this.state.email} icon={<Email />} /></h6>
+                <h6 className={classes.cardCategory}>País: <b>{this.state.pais}</b></h6>
+                <h6 className={classes.cardCategory}>Estado: <b>{this.state.estado}</b></h6>
+                <h6 className={classes.cardCategory}>Tarjeta: <Chip label={this.state.tipo_cuenta} variant="outlined" color="primary" size="small" deleteIcon={<DoneIcon />} onDelete={this.handleDelete} /></h6>
+                <h6 className={classes.cardCategory}>Cuenta: {this.state.numero_cuenta}</h6>
+                <h6 className={classes.cardCategory}><Chip label={this.state.telefono} icon={<Phone />} /></h6>
+                
               </CardBody>
             </Card>
           </GridItem>
