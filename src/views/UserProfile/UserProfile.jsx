@@ -57,6 +57,7 @@ const account_types = [
 
 class UserProfile extends Component {
   state= {
+    id: '',
     name: '',
     email: '',
     password: '',
@@ -72,8 +73,11 @@ class UserProfile extends Component {
   }
 
     async componentDidMount(){
-      await this.props.loadLoggedUser();
+      if(!this.props.state.userReducer.logged_user)
+        await this.props.loadLoggedUser();
+
       this.setState({
+        id:this.props.state.userReducer.logged_user.id,
         name: this.props.state.userReducer.logged_user.name,
         email: this.props.state.userReducer.logged_user.email,
         password: this.props.state.userReducer.logged_user.password,
@@ -107,6 +111,15 @@ class UserProfile extends Component {
 
   handleDelete = (event) =>{
     event.preventDefault();
+  }
+
+  handleUpdateUserProfile = async() => {
+    await this.props.updateUserProfile(this.state)
+  } 
+
+  loadingUpdateUser = () => {
+    if(this.props.state.userReducer.loading_update_user)
+      return <CircularProgress className="ml-2"/>
   }
 
   render(){
@@ -271,7 +284,11 @@ class UserProfile extends Component {
 
               </CardBody>
               <CardFooter>
-                <Button color="primary">Actualizar Perfil</Button>
+                <div className="row">
+
+                <Button color="primary" disabled={this.props.state.userReducer.loading_update_user} onClick={this.handleUpdateUserProfile}>Actualizar Perfil</Button>
+                {this.loadingUpdateUser()}
+                </div>
               </CardFooter>
             </Card>
           </GridItem>

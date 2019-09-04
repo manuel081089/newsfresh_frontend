@@ -1,16 +1,12 @@
 import axios from "axios";
 import { API_URL } from "../constants/envirementConstant";
+import * as authService from "./authService";
 
 export async function getLoggedUser() {
   try {
-    const token = localStorage.getItem("user");
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
-    return await axios.get(`${API_URL}/api/showAuthenticate`, config);
+    authService.setDefaultHeaderAxiosRequest(authService.token());
+    return await axios.get(`${API_URL}/api/showAuthenticate`);
   } catch (error) {
-    throw error;
+    return error;
   }
 }
