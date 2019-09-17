@@ -91,7 +91,6 @@ class UserProfile extends Component {
         numero_cuenta: this.props.state.userReducer.logged_user.numero_cuenta,
         ranking: this.props.state.userReducer.logged_user.ranking,
       })
-      console.log('Mi estado::', this.state)
   }
     
 

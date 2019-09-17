@@ -11,6 +11,7 @@ import Signout from "views/Login/Signout";
 import requireAuth from "./views/Login/Require_auth";
 import noRequireAuth from "./views/Login/Not_authentication";
 import SecretPage from "views/Login/SecretPage";
+import UrlForm from "views/Url/UrlForm";
 
 const hist = createBrowserHistory();
 const App = () => (
@@ -22,6 +23,9 @@ const App = () => (
       <Route path="/signout" component={requireAuth(Signout)} />
       <Route path="/secret" component={requireAuth(SecretPage)} />
       <Route path="/admin" component={requireAuth(Admin)} />
+      <Admin>
+        <Route path="/addUrl" component={requireAuth(UrlForm)} />
+      </Admin>
       <Route path="/rtl" component={RTL} />
     </Switch>
   </Router>

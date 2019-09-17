@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import * as urlActions from '../../actions/urlAction'
 import { CircularProgress } from "@material-ui/core";
 import * as urlService from '../../Services/urlService'
+import {Link} from 'react-router-dom'
 
 const styles = {
   cardCategoryWhite: {
@@ -48,6 +49,7 @@ const styles = {
 
 class UrlList extends Component {
 
+
   async componentDidMount(){
     if(!this.props.state.urlReducer.urls)
       await this.props.loadUserUrl();
@@ -63,7 +65,6 @@ class UrlList extends Component {
         <Table
           tableHeaderColor="primary"
           tableHead={["URL Acortada", "Original", "Visitas"]}
-          // tableData={this.props.state.urlReducer.urls}
           tableData={values}
         />
       )
@@ -83,6 +84,7 @@ class UrlList extends Component {
               </p>
             </CardHeader>
             <CardBody>
+              <Link to="/admin/addUrl" className="btn btn-primary">Acortar URL</Link>
               {this.loadingUrls()}
             </CardBody>
           </Card>

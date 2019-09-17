@@ -1,3 +1,9 @@
 export const LOAD_LOGIN_USER_URL = "Load_login_user_url";
 export const LOAD_LOGIN_USER_URL_SUCCESS = "Load_login_user_url_success";
 export const LOAD_LOGIN_USER_URL_FAIL = "Load_login_user_url_fail";
+export const ADD_USER_URL = "Add_user_url";
+export const ADD_USER_URL_SUCCESS = "Add_user_url_success";
+export const ADD_USER_URL_FAIL = "Add_user_url_fail";
+export const LOAD_CATEGORIES = "Load_categories";
+export const LOAD_CATEGORIES_SUCCESS = "Load_categories_success";
+export const LOAD_CATEGORIES_FAIL = "Load_categories_fail";

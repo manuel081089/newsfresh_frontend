@@ -31,6 +31,7 @@ import Typography from "views/Typography/Typography.jsx";
 import Icons from "views/Icons/Icons.jsx";
 
 import NotificationsPage from "views/Notifications/Notifications.jsx";
+import UrlForm from "views/Url/UrlForm";
 
 const dashboardRoutes = [
   {
@@ -56,6 +57,15 @@ const dashboardRoutes = [
     icon: "content_paste",
     component: UrlList,
     layout: "/admin"
+  },
+  {
+    path: "/addUrl",
+    name: "Acortar URL",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: UrlForm,
+    layout: "/admin",
+    hidden: true
   },
   {
     path: "/typography",

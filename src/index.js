@@ -35,8 +35,8 @@ const store = createStore(
   applyMiddleware(reduxThunk)
 );
 
-const user = localStorage.getItem("user");
-if (user) {
+const token = localStorage.getItem("token");
+if (token) {
   store.dispatch({ type: AUTHENTICATED });
 }
 

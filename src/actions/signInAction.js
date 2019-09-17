@@ -14,7 +14,9 @@ export function signInAction(signInData, history) {
     try {
       dispatch({ type: LOADING });
       const res = await axios.post(`${API_URL}/api/login`, signInData);
-      localStorage.setItem("user", res.data.token);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("email", signInData.email);
+      localStorage.setItem("password", signInData.password);
       dispatch({ type: AUTHENTICATED });
       authService.setDefaultHeaderAxiosRequest(res.data.token);
       history.push("/admin/dashboard");

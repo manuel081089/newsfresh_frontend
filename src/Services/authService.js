@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../constants/envirementConstant";
 
 export function setDefaultHeaderAxiosRequest(token) {
   if (token) {
@@ -8,10 +9,26 @@ export function setDefaultHeaderAxiosRequest(token) {
   }
 }
 
+// Function that will be called to refresh authorization
+export async function refreshAuthLogic() {
+  const failedRequest = await axios
+    .post(`${API_URL}/api/login`, {
+      email: localStorage.getItem("email"),
+      password: localStorage.getItem("password")
+    })
+    .then(tokenRefreshResponse => {
+      console.log("Sirvio man");
+      localStorage.setItem("token", tokenRefreshResponse.data.token);
+      failedRequest.response.config.headers["Authentication"] =
+        "Bearer " + tokenRefreshResponse.data.token;
+      return Promise.resolve();
+    });
+}
+
 export const islogged = () => {
-  return localStorage.getItem("user") ? true : false;
+  return localStorage.getItem("token") ? true : false;
 };
 
 export const token = () => {
-  return localStorage.getItem("user");
+  return localStorage.getItem("token");
 };

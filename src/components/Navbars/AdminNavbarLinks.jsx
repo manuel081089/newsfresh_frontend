@@ -47,7 +47,6 @@ class AdminNavbarLinks extends React.Component {
     this.setState(state => ({ openProfile: !state.openProfile }));
   };
   handleCloseProfile = event => {
-    console.log('Closeeeee')
     this.props.signOutAction(this.props.history);
     if (this.anchorProfile.contains(event.target)) {
       return;
