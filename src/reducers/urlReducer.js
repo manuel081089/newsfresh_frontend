@@ -27,7 +27,7 @@ export default function(state = INITIAL_STATE, action) {
         urls: null
       };
     case urlConstant.ADD_USER_URL:
-      return { ...state, loadingAddRequest: true, error: "" };
+      return { ...state, loadingAddRequest: true, error: "", loading: true };
     case urlConstant.ADD_USER_URL_SUCCESS:
       return {
         ...state,

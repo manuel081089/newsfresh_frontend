@@ -52,7 +52,7 @@ class UrlForm extends Component {
   state = {
     originalUrl: "",
     callAttention: "",
-    category: "",
+    category: 0,
     categories: []
   };
 
@@ -153,7 +153,7 @@ class UrlForm extends Component {
                                 return (
                                   <MenuItem
                                     key={category.id}
-                                    value={category.nombre}
+                                    value={category.id}
                                   >
                                     {category.nombre}
                                   </MenuItem>

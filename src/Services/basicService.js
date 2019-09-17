@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../constants/envirementConstant";
 import * as authService from "./authService";
-import { async } from "q";
 
 export function getItem(id, modelUrl) {}
 

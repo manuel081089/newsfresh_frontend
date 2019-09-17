@@ -27,9 +27,9 @@ export function addUserUrl(url, history) {
         titulo: url.callAttention,
         visitas: 0,
         activo: true,
-        categoria: 1
+        categoria: url.category
       };
-      const res = await basicService.addItem(urlItem, "url");
+      await basicService.addItem(urlItem, "url");
       dispatch({ type: urlContant.ADD_USER_URL_SUCCESS });
       history.push("/admin/urls");
       this.loadUserUrl();
