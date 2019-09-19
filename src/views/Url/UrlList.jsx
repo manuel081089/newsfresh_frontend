@@ -65,7 +65,8 @@ class UrlList extends Component {
         <Table
           tableHeaderColor="primary"
           tableHead={["URL Acortada", "Original", "Visitas"]}
-          tableData={values}
+          showFields = {['urlAcotada','urlOriginal','visitas']}
+          tableData={this.props.state.urlReducer.urls}
         />
       )
     }
