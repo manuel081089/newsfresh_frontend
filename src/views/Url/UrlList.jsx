@@ -14,7 +14,6 @@ import CardBody from "components/Card/CardBody.jsx";
 import { connect } from "react-redux";
 import * as urlActions from '../../actions/urlAction'
 import { CircularProgress } from "@material-ui/core";
-import * as urlService from '../../Services/urlService'
 import {Link} from 'react-router-dom'
 
 const styles = {
@@ -54,19 +53,23 @@ class UrlList extends Component {
     if(!this.props.state.urlReducer.urls)
       await this.props.loadUserUrl();
   }
+  removeItem = async (index) =>{
+    await this.props.removeUserUrl(index)
+  }
 
   loadingUrls = () => {
     if(this.props.state.urlReducer.loading)
       return <CircularProgress  className="mx-auto d-block"/>
     else{
-      const values = urlService.transformValuesToTableData(this.props.state.urlReducer.urls)
-      console.log('values::', values)
       return (
         <Table
           tableHeaderColor="primary"
           tableHead={["URL Acortada", "Original", "Visitas"]}
           showFields = {['urlAcotada','urlOriginal','visitas']}
           tableData={this.props.state.urlReducer.urls}
+          removable={true}
+          editable={true}
+          removeItem={this.removeItem}
         />
       )
     }

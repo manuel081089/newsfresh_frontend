@@ -30,3 +30,12 @@ export async function getAllItems(modelUrl) {
     return error;
   }
 }
+
+export async function removeItem(modelUrl, index) {
+  try {
+    authService.setDefaultHeaderAxiosRequest(authService.token());
+    return await axios.delete(`${API_URL}/api/${modelUrl}/${index}`);
+  } catch (error) {
+    return error;
+  }
+}

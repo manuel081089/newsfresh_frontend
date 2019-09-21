@@ -14,14 +14,33 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from "@material-ui/core/Tooltip";
 import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
+import Modal from '@material-ui/core/Modal';
+import ModalRemoveConfirmation from "components/Shared/ModalRemoveConfirmation";
 
 class CustomTable extends Component {
+  state ={
+    openModal:false,
+    selectedIndex: -1
+  }
 
-  actionButtons(){
+  handleOpenModal = event =>{
+    this.setState({ openModal: true, selectedIndex: event.target.id})
+  }
+
+  handleCloseModal = () => {
+    this.setState({ openModal: false})
+  }
+
+  handleAccept = () => {
+    this.handleCloseModal();
+    if(this.state.selectedIndex !== -1)
+      this.props.removeItem(this.state.selectedIndex)
+  }
+
+  actionButtons = id =>{
     const {removable, editable, classes } = this.props
     var removableTableCell = null;
     var editableTableCell =null;
-
     if(removable){
       removableTableCell = (<Tooltip
         id="tooltip-top-start"
@@ -33,8 +52,10 @@ class CustomTable extends Component {
           aria-label="Close"
           size="small"
           className={classes.tableActionButton}
+          onClick={this.handleOpenModal}
         >
           <Close
+            id={id}
             fontSize="inherit"
             className="text-danger"
           />
@@ -116,12 +137,24 @@ class CustomTable extends Component {
                     return null;
                   })}
 
-                  {this.actionButtons()}
+                  {this.actionButtons(prop.id)}
                 </TableRow>
               );
             })}
           </TableBody>
         </Table>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.openModal}
+          onClose={this.handleCloseModal}
+        >
+          <ModalRemoveConfirmation
+            onAccept={this.handleAccept}
+            onCancel={this.handleCloseModal}
+          />
+  
+        </Modal>
       </div>
     );
   }

@@ -54,3 +54,17 @@ export function loadCategories() {
     }
   };
 }
+
+export function removeUserUrl(index) {
+  return async dispatch => {
+    try {
+      dispatch({ type: urlContant.REMOVE_USER_URL });
+      const res = await basicService.removeItem("url", index);
+      dispatch({ type: urlContant.REMOVE_USER_URL_SUCCESS });
+      this.loadUserUrl();
+      console.log("Respuesta::", res);
+    } catch (error) {
+      dispatch({ type: urlContant.REMOVE_USER_URL_FAIL, payload: error });
+    }
+  };
+}

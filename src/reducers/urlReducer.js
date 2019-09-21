@@ -56,6 +56,21 @@ export default function(state = INITIAL_STATE, action) {
         loading: false,
         urls: null
       };
+
+    case urlConstant.REMOVE_USER_URL:
+      return { ...state, loading: true, error: "" };
+    case urlConstant.REMOVE_USER_URL_SUCCESS:
+      return {
+        ...state,
+        error: "",
+        loading: false
+      };
+    case urlConstant.REMOVE_USER_URL_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
+      };
     default:
       return { ...state };
   }

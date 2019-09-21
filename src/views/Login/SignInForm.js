@@ -21,11 +21,6 @@ import Logo from "../../assets/img/logo.png";
 import { CircularProgress } from "@material-ui/core";
 
 class SignInForm extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { show_password: false };
-  // }
-
   state = {
     show_password: false
   };

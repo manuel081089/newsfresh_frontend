@@ -7,3 +7,6 @@ export const ADD_USER_URL_FAIL = "Add_user_url_fail";
 export const LOAD_CATEGORIES = "Load_categories";
 export const LOAD_CATEGORIES_SUCCESS = "Load_categories_success";
 export const LOAD_CATEGORIES_FAIL = "Load_categories_fail";
+export const REMOVE_USER_URL = "Remove_user_url";
+export const REMOVE_USER_URL_SUCCESS = "Remove_user_url_success";
+export const REMOVE_USER_URL_FAIL = "Remove_user_url_fail";
