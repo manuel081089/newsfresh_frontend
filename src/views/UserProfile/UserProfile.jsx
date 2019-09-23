@@ -26,6 +26,7 @@ import Chip from '@material-ui/core/Chip';
 import Email from '@material-ui/icons/Email';
 import DoneIcon from '@material-ui/icons/Done';
 import Phone from '@material-ui/icons/Phone';
+import ErrorComponent from "components/Shared/ErrorComponent";
 
 const styles = {
   cardCategoryWhite: {
@@ -76,26 +77,28 @@ class UserProfile extends Component {
       if(!this.props.state.userReducer.logged_user)
         await this.props.loadLoggedUser();
 
-      this.setState({
-        id:this.props.state.userReducer.logged_user.id,
-        name: this.props.state.userReducer.logged_user.name,
-        email: this.props.state.userReducer.logged_user.email,
-        password: this.props.state.userReducer.logged_user.password,
-        identidad: this.props.state.userReducer.logged_user.identidad,
-        direccion: this.props.state.userReducer.logged_user.direccion,
-        telefono: this.props.state.userReducer.logged_user.telefono,
-        pais: this.props.state.userReducer.logged_user.pais,
-        estado: this.props.state.userReducer.logged_user.estado,
-        ciudad: this.props.state.userReducer.logged_user.ciudad,
-        tipo_cuenta: this.props.state.userReducer.logged_user.tipo_cuenta,
-        numero_cuenta: this.props.state.userReducer.logged_user.numero_cuenta,
-        ranking: this.props.state.userReducer.logged_user.ranking,
-      })
+      if(this.props.state.userReducer.logged_user){
+        this.setState({
+          id:this.props.state.userReducer.logged_user.id,
+          name: this.props.state.userReducer.logged_user.name,
+          email: this.props.state.userReducer.logged_user.email,
+          password: this.props.state.userReducer.logged_user.password,
+          identidad: this.props.state.userReducer.logged_user.identidad,
+          direccion: this.props.state.userReducer.logged_user.direccion,
+          telefono: this.props.state.userReducer.logged_user.telefono,
+          pais: this.props.state.userReducer.logged_user.pais,
+          estado: this.props.state.userReducer.logged_user.estado,
+          ciudad: this.props.state.userReducer.logged_user.ciudad,
+          tipo_cuenta: this.props.state.userReducer.logged_user.tipo_cuenta,
+          numero_cuenta: this.props.state.userReducer.logged_user.numero_cuenta,
+          ranking: this.props.state.userReducer.logged_user.ranking,
+        })
+      }
   }
     
 
   loadingUser = () =>{
-    return this.props.state.userReducer.loading || !this.props.state.userReducer.logged_user 
+    return this.props.state.userReducer.loading 
   }
 
   handleChange = (event) => {
@@ -125,6 +128,9 @@ class UserProfile extends Component {
     const { classes } = this.props;
     if(this.loadingUser())
       return <CircularProgress className="mx-auto d-block" />
+     
+    if(this.props.state.userReducer.error)
+      return <ErrorComponent message={this.props.state.userReducer.error}/>
       
     return (
       <div>
