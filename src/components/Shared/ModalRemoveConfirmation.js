@@ -1,4 +1,5 @@
 import React from "react";
+import Delete from "@material-ui/icons/Delete";
 
 export default class ModalRemoveConfirmation extends React.Component {
   render() {
@@ -6,36 +7,35 @@ export default class ModalRemoveConfirmation extends React.Component {
       <div>
         <div className="modal-dialog" role="document">
           <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Modal title</h5>
+            <div class="mt-4 d-flex justify-content-center">
+              <Delete fontSize="large" color="error" />
+            </div>
+
+            <div className="mt-4 d-flex justify-content-center">
+              <h4>¿Eliminar registro?</h4>
+            </div>
+            <div className="mt-4 d-flex justify-content-center">
+              <p className="text-center">
+                ¿Está seguro que desea eliminar este registro? Este proceso no
+                puede deshacerse
+              </p>
+            </div>
+
+            <div className="mt-4 mb-5 d-flex justify-content-center">
               <button
                 type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-                onClick={this.props.onCancel}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-primary"
+                className="btn btn-danger"
                 onClick={this.props.onAccept}
               >
-                Save changes
+                Eliminar
               </button>
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-secondary ml-3"
                 data-dismiss="modal"
                 onClick={this.props.onCancel}
               >
-                Close
+                Cancelar
               </button>
             </div>
           </div>

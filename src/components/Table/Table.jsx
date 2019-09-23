@@ -37,6 +37,11 @@ class CustomTable extends Component {
       this.props.removeItem(this.state.selectedIndex)
   }
 
+  handleEditItem = event =>{
+    this.setState({selectedIndex: event.target.id})
+    this.props.editItem(this.state.selectedIndex)
+  }
+
   actionButtons = id =>{
     const {removable, editable, classes } = this.props
     var removableTableCell = null;
@@ -73,8 +78,10 @@ class CustomTable extends Component {
               aria-label="Close"
               size="small"
               className={classes.tableActionButton}
+              onClick={this.handleEditItem}
             >
               <Edit
+                id={id}
                 fontSize="inherit"
                 className="text-primary"
               />

@@ -57,6 +57,10 @@ class UrlList extends Component {
     await this.props.removeUserUrl(index)
   }
 
+  editItem = (index)=>{
+    //cargar vista para editar las url
+  }
+
   loadingUrls = () => {
     if(this.props.state.urlReducer.loading)
       return <CircularProgress  className="mx-auto d-block"/>
@@ -70,6 +74,7 @@ class UrlList extends Component {
           removable={true}
           editable={true}
           removeItem={this.removeItem}
+          editItem={this.editItem}
         />
       )
     }
