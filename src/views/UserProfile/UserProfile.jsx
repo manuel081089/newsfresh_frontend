@@ -74,8 +74,8 @@ class UserProfile extends Component {
   }
 
     async componentDidMount(){
-      if(!this.props.state.userReducer.logged_user)
-        await this.props.loadLoggedUser();
+       if(!this.props.state.userReducer.logged_user)
+         await this.props.loadLoggedUser();
 
       if(this.props.state.userReducer.logged_user){
         this.setState({
@@ -92,6 +92,8 @@ class UserProfile extends Component {
           tipo_cuenta: this.props.state.userReducer.logged_user.tipo_cuenta,
           numero_cuenta: this.props.state.userReducer.logged_user.numero_cuenta,
           ranking: this.props.state.userReducer.logged_user.ranking,
+          rol: this.props.state.userReducer.logged_user.rol,
+          activo: this.props.state.userReducer.logged_user.activo
         })
       }
   }
