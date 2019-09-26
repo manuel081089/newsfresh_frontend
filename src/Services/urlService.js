@@ -3,7 +3,7 @@ import { API_URL } from "../constants/envirementConstant";
 import * as authService from "./authService";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 
-export async function getUserUrl() {
+export async function getUserUrl(signal) {
   try {
     //Function that will be called to refresh authorization
     const refreshAuthLogic = failedRequest =>
@@ -23,7 +23,9 @@ export async function getUserUrl() {
         });
     authService.setDefaultHeaderAxiosRequest(authService.token());
     createAuthRefreshInterceptor(axios, refreshAuthLogic);
-    return await axios.get(`${API_URL}/api/url_login_user`);
+    return await axios.get(`${API_URL}/api/url_login_user`, {
+      cancelToken: signal.token
+    });
   } catch (error) {}
 }
 

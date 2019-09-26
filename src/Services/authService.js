@@ -17,7 +17,6 @@ export async function refreshAuthLogic() {
       password: localStorage.getItem("password")
     })
     .then(tokenRefreshResponse => {
-      console.log("Sirvio man");
       localStorage.setItem("token", tokenRefreshResponse.data.token);
       failedRequest.response.config.headers["Authentication"] =
         "Bearer " + tokenRefreshResponse.data.token;

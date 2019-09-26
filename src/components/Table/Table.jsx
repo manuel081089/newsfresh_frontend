@@ -38,8 +38,7 @@ class CustomTable extends Component {
   }
 
   handleEditItem = event =>{
-    this.setState({selectedIndex: event.target.id})
-    this.props.editItem(this.state.selectedIndex)
+    this.props.editItem(event.target.id)
   }
 
   actionButtons = id =>{

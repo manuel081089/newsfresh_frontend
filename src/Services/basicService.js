@@ -4,28 +4,34 @@ import * as authService from "./authService";
 
 export function getItem(id, modelUrl) {}
 
-export async function addItem(item, modelUrl) {
+export async function addItem(item, modelUrl, signal) {
   try {
     authService.setDefaultHeaderAxiosRequest(authService.token());
-    return await axios.post(`${API_URL}/api/${modelUrl}`, item);
+    return await axios.post(`${API_URL}/api/${modelUrl}`, item, {
+      cancelToken: signal.token
+    });
   } catch (error) {
     return error;
   }
 }
 
-export async function updateItem(item, modelUrl) {
+export async function updateItem(item, modelUrl, signal) {
   try {
     authService.setDefaultHeaderAxiosRequest(authService.token());
-    return await axios.put(`${API_URL}/api/${modelUrl}/${item.id}`, item);
+    return await axios.put(`${API_URL}/api/${modelUrl}/${item.id}`, item, {
+      cancelToken: signal.token
+    });
   } catch (error) {
     return error;
   }
 }
 
-export async function getAllItems(modelUrl) {
+export async function getAllItems(modelUrl, signal) {
   try {
     authService.setDefaultHeaderAxiosRequest(authService.token());
-    return await axios.get(`${API_URL}/api/${modelUrl}`);
+    return await axios.get(`${API_URL}/api/${modelUrl}`, {
+      cancelToken: signal.token
+    });
   } catch (error) {
     return error;
   }

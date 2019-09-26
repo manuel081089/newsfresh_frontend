@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import * as urlActions from '../../actions/urlAction'
 import { CircularProgress } from "@material-ui/core";
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 const styles = {
   cardCategoryWhite: {
@@ -47,22 +48,35 @@ const styles = {
 };
 
 class UrlList extends Component {
-
+  signal = axios.CancelToken.source();
 
   async componentDidMount(){
-    if(!this.props.state.urlReducer.urls)
-      await this.props.loadUserUrl();
+    if(!this.props.state.urlReducer.urls){
+      await this.props.loadUserUrl(this.signal);
+    }
+    this.props.clearSelectedUrl()
   }
+
+  componentWillUnmount(){
+    this.signal.cancel('Api is being canceled');
+  }
+
   removeItem = async (index) =>{
     await this.props.removeUserUrl(index)
   }
 
   editItem = (index)=>{
-    //cargar vista para editar las url
+    if(index !== -1){
+      const selectedUrl = this.props.state.urlReducer.urls.find((item)=>{ 
+        return item.id == index
+      })
+      this.props.loadEditUrl(selectedUrl)
+      this.props.history.push("/admin/addUrl");
+    }
   }
 
   loadingUrls = () => {
-    if(this.props.state.urlReducer.loading)
+    if(this.props.state.urlReducer.loading || this.props.state.urlReducer.urls === null)
       return <CircularProgress  className="mx-auto d-block"/>
     else{
       return (

@@ -14,10 +14,8 @@ export function loadLoggedUser() {
     try {
       dispatch({ type: LOAD_LOGGED_USER });
       const res = await userService.getLoggedUser();
-      console.log(res);
       dispatch({ type: LOAD_LOGGED_USER_SUCCESS, payload: res.data });
     } catch (error) {
-      console.log("ERROR::", error);
       dispatch({
         type: LOAD_LOGGED_USER_FAIL,
         payload: "Upss... Ha ocurrido un error cargando los datos."
