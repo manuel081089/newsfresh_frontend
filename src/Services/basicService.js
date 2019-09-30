@@ -37,10 +37,12 @@ export async function getAllItems(modelUrl, signal) {
   }
 }
 
-export async function removeItem(modelUrl, index) {
+export async function removeItem(modelUrl, index, signal) {
   try {
     authService.setDefaultHeaderAxiosRequest(authService.token());
-    return await axios.delete(`${API_URL}/api/${modelUrl}/${index}`);
+    return await axios.delete(`${API_URL}/api/${modelUrl}/${index}`, {
+      cancelToken: signal.token
+    });
   } catch (error) {
     return error;
   }

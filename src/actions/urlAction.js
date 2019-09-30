@@ -54,13 +54,13 @@ export function loadCategories(signal) {
   };
 }
 
-export function removeUserUrl(index) {
+export function removeUserUrl(index, signal) {
   return async dispatch => {
     try {
       dispatch({ type: urlContant.REMOVE_USER_URL });
-      await basicService.removeItem("url", index);
+      await basicService.removeItem("url", index, signal);
       dispatch({ type: urlContant.REMOVE_USER_URL_SUCCESS });
-      this.loadUserUrl();
+      this.loadUserUrl(signal);
     } catch (error) {
       dispatch({ type: urlContant.REMOVE_USER_URL_FAIL, payload: error });
     }

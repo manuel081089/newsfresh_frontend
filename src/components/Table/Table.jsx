@@ -16,6 +16,7 @@ import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
 import Modal from '@material-ui/core/Modal';
 import ModalRemoveConfirmation from "components/Shared/ModalRemoveConfirmation";
+import DialogContent from '@material-ui/core/DialogContent';
 
 class CustomTable extends Component {
   state ={
@@ -149,18 +150,23 @@ class CustomTable extends Component {
             })}
           </TableBody>
         </Table>
+        <div>
+
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={this.state.openModal}
           onClose={this.handleCloseModal}
         >
-          <ModalRemoveConfirmation
-            onAccept={this.handleAccept}
-            onCancel={this.handleCloseModal}
-          />
+          <DialogContent>
+            <ModalRemoveConfirmation
+              onAccept={this.handleAccept}
+              onCancel={this.handleCloseModal}
+            />
+          </DialogContent>
   
         </Modal>
+        </div>
       </div>
     );
   }

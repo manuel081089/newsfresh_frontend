@@ -62,7 +62,11 @@ class UrlList extends Component {
   }
 
   removeItem = async (index) =>{
-    await this.props.removeUserUrl(index)
+    console.log('El indice es ::', index)
+    if(index)
+    {
+      await this.props.removeUserUrl(index, this.signal)
+    }
   }
 
   editItem = (index)=>{
@@ -70,8 +74,10 @@ class UrlList extends Component {
       const selectedUrl = this.props.state.urlReducer.urls.find((item)=>{ 
         return item.id == index
       })
-      this.props.loadEditUrl(selectedUrl)
-      this.props.history.push("/admin/addUrl");
+      if(index){
+        this.props.loadEditUrl(selectedUrl)
+        this.props.history.push("/admin/addUrl");
+      }
     }
   }
 

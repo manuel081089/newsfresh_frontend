@@ -7,7 +7,7 @@ export default class ModalRemoveConfirmation extends React.Component {
       <div>
         <div className="modal-dialog" role="document">
           <div className="modal-content">
-            <div class="mt-4 d-flex justify-content-center">
+            <div className="mt-4 d-flex justify-content-center">
               <Delete fontSize="large" color="error" />
             </div>
 
